@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, {useState} from 'react';
 import './App.css';
 
-function App() {
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route
+} from "react-router-dom"
+
+// import { createBrowserHistory } from 'history'
+
+import Home from './Home'
+import Repositories from './Repositories'
+import Readme from './Readme';
+
+
+const App = () => {
+  const [ userId, setUserId ] = useState()
+  
+  // const history = createBrowserHistory()
+
+  const onUserChange = (user) => {    
+    setUserId(user)
+    // history.push(user)
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+        <Switch>
+          <Route path="/:user/:repository">
+            <Readme />
+          </Route>
+          <Route path="/:user">
+            <Repositories />
+          </Route>
+          <Route exact path="/">
+            <Home onChange = {onUserChange} />
+          </Route>
+        </Switch>
+    </Router>
   );
 }
 
-export default App;
+export default App
