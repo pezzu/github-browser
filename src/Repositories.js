@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom'
 
 import axios from 'axios'
 
+import Header from './Header'
 
 const Repository = (props) => {    
     return <div>
@@ -24,7 +25,7 @@ const Repositories = () => {
     
     return (
         <div>
-            List of Repositories for user {user}
+            <Header title={`Repositories: ${user}`}/> 
             {repositories.map(repository => {
                 return <Repository key = {repository.id} user = {user} repository = {repository}/>
             })}

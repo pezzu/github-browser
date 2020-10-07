@@ -3,15 +3,15 @@ import { useParams } from 'react-router-dom'
 
 import axios from 'axios'
 
+import Header from './Header'
+
 const Readme = () => {
     const { user, repository } = useParams()
     const [ readme, setReadme ] = useState()
 
     const getReadme = (user, repository) => {
-        return axios.get(`https://api.github.com/repos/${user}/${repository}/contents/`)
-                    .then(({ data }) => data.find(file => file.name === 'README.md' && file.type === 'file'))
-                    .then(readme => axios.get(readme.download_url))
-                    .then(({ data }) => data)
+        return axios.get(`https://api.github.com/repos/${user}/${repository}/readme/`)
+                    .then(({ data }) => atob(data.content))
     }
 
     useEffect(() => {
@@ -20,8 +20,15 @@ const Readme = () => {
 
     return (
         <div>
-            Readme for repository {user}/{repository}
-            <div>{readme}</div>
+            <Header title = {`Repository ${user}/${repository}`} 
+                    navigate = {[{   
+                            id: "go-repository-list",
+                            to: `/${user}`, 
+                            text: "Repositories" 
+                        } 
+                    ]}
+            />
+            <div id = "description">{readme}</div>
         </div>
     )   
 }
