@@ -6,8 +6,14 @@ import axios from 'axios'
 import Header from './Header'
 
 const Repository = (props) => {    
-    return <div>
-        <Link to={ `/${props.user}/${props.repository.name}` }>{ props.repository.name }</Link>
+    return <div className = "px-4 p-2 hover:bg-blue-100">
+        <Link 
+            className = "font-semibold text-xl hover:underline"
+            to={ `/${props.user}/${props.repository.name}` }
+        >
+            { props.repository.name }
+        </Link>
+        <div className = "text-sm">{props.repository.description}</div>
     </div>
 }
 
@@ -26,9 +32,13 @@ const Repositories = () => {
     return (
         <div>
             <Header title={`Repositories: ${user}`}/> 
-            {repositories.map(repository => {
-                return <Repository key = {repository.id} user = {user} repository = {repository}/>
-            })}
+            <div className = "flex justify-center">
+                <div className = "py-4 divide-y divide-gray-400">
+                    {repositories.map(repository => {
+                        return <Repository key = {repository.id} user = {user} repository = {repository}/>
+                    })}
+                </div>
+            </div>
         </div>
     )   
 }

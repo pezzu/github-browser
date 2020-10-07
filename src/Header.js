@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 const Header = (props) => {
     const navigate = (typeof props.navigate !== 'undefined')? props.navigate : []
     return (
-        <ul className="flex items-center bg-blue-500 p-3">
+        <ul className="flex items-center bg-blue-600 p-3">
             <li className = "mr-6">
                 <Link id = "go-back" to = "/" className = "text-blue-200 hover:text-white">
                     <span className="font-bold text-xl tracking-tight ">Github</span>
