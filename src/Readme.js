@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
 
 import axios from 'axios'
+import marked from 'marked'
 
 import Header from './Header'
 
@@ -11,7 +12,7 @@ const Readme = () => {
 
     const getReadme = (user, repository) => {
         return axios.get(`https://api.github.com/repos/${user}/${repository}/readme/`)
-                    .then(({ data }) => atob(data.content))
+                    .then(({ data }) => marked(atob(data.content)))
     }
 
     useEffect(() => {
@@ -28,7 +29,7 @@ const Readme = () => {
                         } 
                     ]}
             />
-            <div id = "description">{readme}</div>
+            <div id = "description" className = "markdown" dangerouslySetInnerHTML = {{__html: readme}}></div>
         </div>
     )   
 }
